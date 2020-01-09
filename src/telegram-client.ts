@@ -108,9 +108,9 @@ export class TelegramClient {
   }
 
   private setPhoneNumber = (): void => {
-    this.send({
-      '@type': 'setAuthenticationPhoneNumber',
-      phone_number: process.env.REACT_APP_PHONE_TEST_NUMBER,
-    })
+    // this.send({
+    //   '@type': 'setAuthenticationPhoneNumber',
+    //   phone_number: process.env.REACT_APP_PHONE_TEST_NUMBER,
+    // })
   }
 }

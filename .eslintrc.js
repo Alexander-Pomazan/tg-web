@@ -27,7 +27,8 @@ module.exports = {
     'react',
     '@typescript-eslint',
     'import',
-    'prettier'
+    'prettier',
+    'react-hooks'
   ],
   rules: {
     'react/jsx-filename-extension': [1, { 'extensions': ['.tsx'] }],
@@ -37,10 +38,20 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'import/extensions': [1, { 'js': 'never', 'jsx': 'never', 'ts': 'never', 'tsx': 'never' }],
     'import/prefer-default-export': 0,
+    
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
+
+    '@typescript-eslint/member-delimiter-style': 0,
+    '@typescript-eslint/semi': ['error', 'never'],
+
+    'react/prop-types': 0, // because we use typescript
 
     'max-len': ['error', { code: 90, ignoreTrailingComments: true }],
-    '@typescript-eslint/semi': ['error', 'never'],
-    'quotes': ['error', 'single'],
+    'quotes': [
+      'error',
+      'single'
+    ],
     'consistent-return': ['error', { 'treatUndefinedAsUnspecified': true }],
     'consistent-return': 0,
     'no-unused-vars': 0,
