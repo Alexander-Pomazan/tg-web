@@ -10,6 +10,7 @@ const { REACT_APP_API_ID, REACT_APP_API_HASH } = process.env
 if (!REACT_APP_API_ID || !REACT_APP_API_HASH) throw Error('Credentials were not provided')
 
 const client = new TelegramClient(+REACT_APP_API_ID, REACT_APP_API_HASH)
+// eslint-disable-next-line no-console
 console.log(client)
 
 render(<App />, document.getElementById('root'))

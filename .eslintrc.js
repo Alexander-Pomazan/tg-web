@@ -4,11 +4,12 @@ module.exports = {
     es6: true,
   },
   extends: [
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'airbnb',
+    'airbnb-typescript',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:import/typescript'
+    'plugin:import/typescript',
   ],
   globals: {
     Atomics: 'readonly',
@@ -37,17 +38,12 @@ module.exports = {
     'import/extensions': [1, { 'js': 'never', 'jsx': 'never', 'ts': 'never', 'tsx': 'never' }],
     'import/prefer-default-export': 0,
 
-    'comma-dangle': 0,
-    'semi': 0,
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        semi: false,
-        arrowParens: 'always',
-        tabWidth: 2,
-        printWidth: 80
-      }
-    ]
+    'max-len': ['error', { code: 90, ignoreTrailingComments: true }],
+    '@typescript-eslint/semi': ['error', 'never'],
+    'quotes': ['error', 'single'],
+    'consistent-return': ['error', { 'treatUndefinedAsUnspecified': true }],
+    'consistent-return': 0,
+    'no-unused-vars': 0,
+    'camelcase': 0
   },
 };
