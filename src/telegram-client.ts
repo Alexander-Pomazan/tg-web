@@ -48,7 +48,8 @@ export class TelegramClient {
   constructor(api_id: number, api_hash: string) {
     this.client = new TdClient({
       mode: 'wasm',
-
+      // logVerbosityLevel: 0,
+      jsLogVerbosityLevel: 'debug',
       onUpdate: (update): void => {
         // console.log('[CLIENT UPDATE]', update)
 
@@ -94,10 +95,7 @@ export class TelegramClient {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private send = (request: any): void => {
-    // console.log({ request })
-    this.client.send(request)
-  }
+  send = (request: any): any => this.client.send(request)
 
   private handleUpdates = (): void => {}
 

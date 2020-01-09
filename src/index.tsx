@@ -32,6 +32,10 @@ const client = createTelegramClient({
   apiHash: REACT_APP_API_HASH,
 })
 
+// setInterval(() => console.log(client.send({
+//   '@type': 'getAuthorizationState',
+// })), 2000)
+
 render(
   <TelegramApplication client={client} />,
   document.getElementById('root'),
