@@ -3,12 +3,19 @@ import TdClient, { TdObject } from 'tdweb'
 import { getBrowser, getOSName } from 'src/utils'
 import { ClientUpdatesPubsub } from './client-updates-pubsub'
 import { createSetTdParametersRequest } from './request-creators'
+import { PubsubSerializeDecorator } from './pubsub-serialize-decorator'
+import { updatesSerializers } from './updates-serializers'
+import { AuthState } from './serialized-types/auth-state'
+import { TdlibAuthState } from './tdlib-types/tdlib-auth-state'
+import { tdlibUpdatesTypes } from './tdlib-constants'
 
 export class TelegramClient {
   private client: TdClient
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public authPub: ClientUpdatesPubsub<any> = new ClientUpdatesPubsub<any>()
+  public authPub = new PubsubSerializeDecorator<TdlibAuthState, AuthState>(
+    new ClientUpdatesPubsub<AuthState>(), updatesSerializers.authState,
+  )
 
   constructor(api_id: number, api_hash: string) {
     this.client = new TdClient({
@@ -20,9 +27,9 @@ export class TelegramClient {
         console.log('[CLIENT UPDATE]', update)
 
         switch (update['@type']) {
-          case 'updateAuthorizationState': {
+          case tdlibUpdatesTypes.updateAuthorizationState: {
             const authStateType = (update?.authorization_state as TdObject)?.['@type']
-            this.authPub.publish(authStateType)
+            this.authPub.publish(update as TdlibAuthState)
 
             if (authStateType === 'authorizationStateWaitEncryptionKey') {
               return this.setEncriptionKey()

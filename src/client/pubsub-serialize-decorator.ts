@@ -29,5 +29,7 @@ export class PubsubSerializeDecorator<
     this.pubsub.publish(serializedValue)
   }
 
-  subscribe = this.pubsub.subscribe
+  subscribe = (
+    subscriber: (val: SerializedValue) => void,
+  ): (() => void) => this.pubsub.subscribe(subscriber)
 }

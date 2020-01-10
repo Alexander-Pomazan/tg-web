@@ -1,29 +1,11 @@
-import { TdlibMethodNames } from '../tdlib-method-names'
+import { tdlibMethodsNames } from '../tdlib-constants'
 
-export interface TdParameters {
-  '@type': 'tdParameters'
-  use_test_dc: boolean
-  api_id: number
-  api_hash: string
-  system_language_code: string
-  device_model: string
-  system_version: string
-  application_version: string
-  use_secret_chats: boolean
-  use_message_database: true
-  database_directory: string
-  use_file_database?: boolean
-  files_directory?: string
-}
-
-interface SetTdParamsRequest {
-  '@type': TdlibMethodNames.SetTdlibParameters
-  parameters: TdParameters
-}
+import { TdlibParameters } from '../tdlib-types/tdlib-parameters'
+import { SetTdlibParametersRequest } from '../tdlib-types/set-tdlib-parameters-request'
 
 export const createSetTdParametersRequest = (
-  tdParameters: TdParameters,
-): SetTdParamsRequest => ({
-  '@type': TdlibMethodNames.SetTdlibParameters,
+  tdParameters: TdlibParameters,
+): SetTdlibParametersRequest => ({
+  '@type': tdlibMethodsNames.setTdlibParameters,
   parameters: tdParameters,
 })
