@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { render } from 'react-dom'
-import { TelegramClient } from './telegram-client'
+import { TelegramClient } from 'src/client'
 import { TelegramApplication } from './telegram-application'
 
 interface TelegramClientCredentials {

@@ -1,7 +1,14 @@
+const path = require('path')
+
 module.exports = {
   env: {
     browser: true,
     es6: true,
+  },
+  settings: {
+    'import/resolver': {
+      node: { paths: [path.resolve(__dirname, '.')] }
+    }
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
@@ -55,6 +62,7 @@ module.exports = {
     'consistent-return': ['error', { 'treatUndefinedAsUnspecified': true }],
     'consistent-return': 0,
     'no-unused-vars': 0,
-    'camelcase': 0
+    'camelcase': 0,
+    'function-paren-newline': 0
   },
 };

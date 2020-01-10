@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { TelegramClient } from 'src/client'
 import { LoginForm } from './login-form'
-import { TelegramClient } from './telegram-client'
 import { TelegramClientContext } from './telegram-client-context'
 
 
@@ -10,13 +10,15 @@ interface TelegramApplicationProps {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useAuthState = (client: TelegramClient): any => {
-  const [authState, setAuthState] = useState(null)
+  const [authState, setAuthState] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // subscribe to client state updates
+    const unsubscribe = client.authPub.subscribe(
+      (newAuthState: string): void => setAuthState(newAuthState),
+    )
 
-    (async (): Promise<void> => {
+    const getAuthState = async (): Promise<void> => {
       setLoading(true)
       const newAuthState = await client.send({
         '@type': 'getAuthorizationState',
@@ -25,9 +27,13 @@ const useAuthState = (client: TelegramClient): any => {
       setAuthState(newAuthState)
 
       setLoading(false)
-    })()
+    }
+
+    getAuthState()
+
+    return (): void => unsubscribe()
   }, [client])
-  console.log(authState)
+
 
   return { authState, loading }
 }
@@ -35,7 +41,8 @@ const useAuthState = (client: TelegramClient): any => {
 // eslint-disable-next-line arrow-body-style
 export const TelegramApplication: React.FC<TelegramApplicationProps> = ({ client }) => {
   const { authState, loading } = useAuthState(client)
-  console.log(authState)
+  // eslint-disable-next-line no-console
+  console.log('###########################', authState)
   if (loading) return <div>Loading...</div>
 
   return (

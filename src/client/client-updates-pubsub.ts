@@ -1,12 +1,18 @@
 type Subscriber<T> = (value: T) => void
 
-export class Publisher<T> {
+export interface Pubsub<T> {
+  subscribe: (
+    subscriber: Subscriber<T>,
+  ) => (() => void)
+  publish: (value: T) => void
+}
+
+export class ClientUpdatesPubsub<T> implements Pubsub<T> {
   private subscribers: Subscriber<T>[] = []
 
   public subscribe = (
     subscriber: Subscriber<T>,
-  ): ((subscriber: Subscriber<T>) => void
-    ) => {
+  ): () => void => {
     this.subscribers.push(subscriber)
 
     return (): void => this.unsubscribe(subscriber)
