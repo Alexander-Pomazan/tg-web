@@ -1,4 +1,4 @@
-export function getBrowser(): string {
+export const getBrowser = (): string => {
   let browserName = ''
 
   const { documentMode } = (document as any) // eslint-disable-line

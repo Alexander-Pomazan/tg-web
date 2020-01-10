@@ -1,4 +1,4 @@
-export function getOSName(): string {
+export const getOSName = (): string => {
   const { userAgent } = navigator
 
   if (userAgent.includes('Windows NT 10.0')) return 'Windows 10'

@@ -1,7 +1,7 @@
-import { TdlibAuthState } from '../tdlib-types/tdlib-auth-state'
+import { TdlibAuthStateUpdate } from '../tdlib-types/tdlib-auth-state-update'
 import { AuthState } from '../serialized-types/auth-state'
 
-export const serializeAuthState = (authState: TdlibAuthState): AuthState => {
+export const serializeAuthState = (authState: TdlibAuthStateUpdate): AuthState => {
   // eslint-disable-next-line @typescript-eslint/camelcase
   const { authorization_state } = authState
 

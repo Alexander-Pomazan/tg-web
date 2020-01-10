@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { TelegramClient } from 'src/client'
+import { TelegramClient, TelegramClientProvider } from 'src/client'
 import { LoginForm } from './login-form'
-import { TelegramClientContext } from './telegram-client-context'
-
 
 interface TelegramApplicationProps {
   client: TelegramClient
@@ -14,7 +12,7 @@ const useAuthState = (client: TelegramClient): any => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const unsubscribe = client.authPub.subscribe(
+    const unsubscribe = client.authPubSub.subscribe(
       (newAuthState: string): void => setAuthState(newAuthState),
     )
 
@@ -46,8 +44,8 @@ export const TelegramApplication: React.FC<TelegramApplicationProps> = ({ client
   if (loading) return <div>Loading...</div>
 
   return (
-    <TelegramClientContext.Provider value={client}>
+    <TelegramClientProvider value={client}>
       <LoginForm onSubmit={(): void => {}} />
-    </TelegramClientContext.Provider>
+    </TelegramClientProvider>
   )
 }
