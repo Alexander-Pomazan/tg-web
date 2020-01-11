@@ -8,6 +8,7 @@
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
     "tdweb": "^1.5.0",
+    "ts-essentials": "^4.0.0",
     "typescript": "^3.7.4"
   },
   "scripts": {
@@ -15,7 +16,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/** -c .eslintrc.js --fix --cache"
+    "lint": "eslint ./src/**/*.{ts,tsx,js,jsx} -c .eslintrc.js --fix --cache"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": "npm run lint -- --max-warnings=0"
