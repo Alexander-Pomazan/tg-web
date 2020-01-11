@@ -1,5 +1,5 @@
-import { serializeAuthState } from './serialize-auth-state'
+import { serializeAuthStateUpdate } from './serialize-auth-state-update'
 
 export const updatesSerializers = {
-  authState: serializeAuthState,
+  authState: serializeAuthStateUpdate,
 }

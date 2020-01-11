@@ -4,9 +4,13 @@ import { createSetEncriptionKeyRequest } from './create-set-encription-key-reque
 import {
   createGetAuthorizationStateRequest,
 } from './create-get-authorization-state-request'
+import {
+  createSetPhoneNumberRequest,
+} from './create-set-phone-number-request'
 
 export const createRequest = {
   [tdlibMethodsNames.setTdlibParameters]: createSetTdParametersRequest,
   [tdlibMethodsNames.checkDatabaseEncryptionKey]: createSetEncriptionKeyRequest,
   [tdlibMethodsNames.getAuthorizationState]: createGetAuthorizationStateRequest,
+  [tdlibMethodsNames.setPhoneNumber]: createSetPhoneNumberRequest,
 } as const

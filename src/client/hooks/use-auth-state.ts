@@ -1,12 +1,46 @@
 
 import { useReducer, useEffect } from 'react'
 import { AuthState } from '../serialized-types/auth-state'
-import { createReducer } from './use-data-reducer'
+import { useTelegramClient } from './use-telegram-client'
+import { createReducer, ActionType } from './use-data-reducer'
 
 const [authReducer, initialState] = createReducer<AuthState>()
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useAuthState = () => {
-  const [authState, dispatch] = useReducer(authReducer, initialState)
+  const client = useTelegramClient()
 
-  return authState
+  const [state, dispatch] = useReducer(authReducer, initialState)
+
+
+  useEffect(() => {
+    const unsubscribe = client.subscribe.auth(
+      (newAuthState: AuthState): void => dispatch({
+        type: ActionType.Done, payload: { data: newAuthState },
+      }),
+    )
+
+    const getAuthState = async (): Promise<void> => {
+      dispatch({ type: ActionType.Init })
+
+      try {
+        const newAuthState = await client.sendRequest.getAuthorizationState()
+
+        dispatch({ type: ActionType.Done, payload: { data: newAuthState } })
+      } catch (error) {
+        dispatch({ type: ActionType.Fail, payload: { error } })
+      }
+    }
+
+    getAuthState()
+
+    return (): void => unsubscribe()
+  }, [client])
+
+
+  return {
+    authState: state.data,
+    loading: state.loading,
+    error: state.error,
+  }
 }
