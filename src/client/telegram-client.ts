@@ -1,21 +1,39 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import TdClient, { TdObject } from 'tdweb'
-import { getBrowser, getOSName } from 'src/utils'
+import { getBrowser, getOSName, compose } from 'src/utils'
 import { ClientUpdatesPubsub } from './client-updates-pubsub'
 import { createRequest } from './create-request'
 import { PubsubSerializeDecorator } from './pubsub-serialize-decorator'
 import { updatesSerializers } from './updates-serializers'
 import { AuthState } from './serialized-types/auth-state'
 import { TdlibAuthStateUpdate } from './tdlib-types/tdlib-auth-state-update'
-import { tdlibUpdatesTypes } from './tdlib-constants'
+import { tdlibUpdatesTypes, tdlibMethodsNames } from './tdlib-constants'
+
+
+// TODO: find a way to create this object with a loop without breaking types
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const createSendRequest = (client: TdClient) => ({
+  [tdlibMethodsNames.getAuthorizationState]:
+    compose(client.send, createRequest.getAuthorizationState),
+  [tdlibMethodsNames.checkDatabaseEncryptionKey]:
+    compose(client.send, createRequest.checkDatabaseEncryptionKey),
+  [tdlibMethodsNames.setTdlibParameters]:
+    compose(client.send, createRequest.setTdlibParameters),
+})
+
 
 export class TelegramClient {
   private client: TdClient
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public authPubSub = new PubsubSerializeDecorator<TdlibAuthStateUpdate, AuthState>(
+  private authPubSub = new PubsubSerializeDecorator<TdlibAuthStateUpdate, AuthState>(
     new ClientUpdatesPubsub<AuthState>(), updatesSerializers.authState,
   )
+
+  public sendRequest: ReturnType<typeof createSendRequest>
+
+  public subscribe = {
+    auth: this.authPubSub.subscribe,
+  }
 
   constructor(api_id: number, api_hash: string) {
     this.client = new TdClient({
@@ -48,6 +66,8 @@ export class TelegramClient {
       },
     })
 
+    this.sendRequest = createSendRequest(this.client)
+
     const tdLibParams = createRequest.setTdlibParameters({
       '@type': 'tdParameters',
       application_version: '0.0.0',
@@ -65,10 +85,9 @@ export class TelegramClient {
     this.send(tdLibParams)
   }
 
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   send = (request: any): any => this.client.send(request)
-
-  private handleUpdates = (): void => {}
 
   private setEncriptionKey = (): void => {
     this.send(createRequest.checkDatabaseEncryptionKey())

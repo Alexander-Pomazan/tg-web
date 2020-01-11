@@ -1,4 +1,6 @@
-export interface TdlibParameters {
+import { TdObject } from 'tdweb'
+
+export interface TdlibParameters extends TdObject {
   '@type': 'tdParameters'
   use_test_dc: boolean
   api_id: number
