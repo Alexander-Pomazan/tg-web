@@ -62,7 +62,11 @@ export class TelegramClient {
   }
 
   constructor(api_id: number, api_hash: string) {
-    this.sendRequest.setTdlibParameters({
+    this.initialize(api_id, api_hash)
+  }
+
+  private initialize = async (api_id: number, api_hash: string): Promise<void> => {
+    await this.sendRequest.setTdlibParameters({
       '@type': 'tdParameters',
       application_version: '0.0.0',
       use_test_dc: true,
@@ -75,5 +79,7 @@ export class TelegramClient {
       device_model: getBrowser(),
       system_version: getOSName(),
     })
+
+    this.sendRequest.checkDatabaseEncryptionKey()
   }
 }
