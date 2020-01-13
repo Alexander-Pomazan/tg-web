@@ -1,7 +1,8 @@
 import React from 'react'
 import { useAuthState, tdlibAuthorizationStates } from 'src/client'
 import { AuthPageLayout } from './auth-page-layout'
-import { LoginForm } from './login-form'
+import { PhoneNumberFormContainer } from './phone-number-form-container'
+
 
 export const AuthPage: React.FC = () => {
   const { loading, authState } = useAuthState()
@@ -19,5 +20,5 @@ export const AuthPage: React.FC = () => {
   if (showLoadingState) return <div>Loading</div>
 
   // eslint-disable-next-line no-console
-  return <AuthPageLayout authForm={<LoginForm onSubmit={console.log} />} />
+  return <AuthPageLayout authForm={<PhoneNumberFormContainer />} />
 }

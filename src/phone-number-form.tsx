@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 
 interface PhoneNumberFormProps {
-  onSubmit: (code: string) => void
+  onSubmit: (phoneNumber: string) => void
 }
 
 export const PhoneNumberForm: React.FC<PhoneNumberFormProps> = ({ onSubmit }) => {
@@ -20,7 +20,7 @@ export const PhoneNumberForm: React.FC<PhoneNumberFormProps> = ({ onSubmit }) =>
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type="number"
+        type="text"
         value={value}
         onChange={handleChange}
       />

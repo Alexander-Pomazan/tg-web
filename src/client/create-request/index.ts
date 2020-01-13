@@ -12,5 +12,5 @@ export const createRequest = {
   [tdlibMethodsNames.setTdlibParameters]: createSetTdParametersRequest,
   [tdlibMethodsNames.checkDatabaseEncryptionKey]: createSetEncriptionKeyRequest,
   [tdlibMethodsNames.getAuthorizationState]: createGetAuthorizationStateRequest,
-  [tdlibMethodsNames.setPhoneNumber]: createSetPhoneNumberRequest,
+  [tdlibMethodsNames.setAuthenticationPhoneNumber]: createSetPhoneNumberRequest,
 } as const

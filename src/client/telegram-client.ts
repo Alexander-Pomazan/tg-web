@@ -53,8 +53,8 @@ export class TelegramClient {
       compose(this.send, createRequest.checkDatabaseEncryptionKey),
     [tdlibMethodsNames.setTdlibParameters]:
       compose(this.send, createRequest.setTdlibParameters),
-    [tdlibMethodsNames.setPhoneNumber]:
-      compose(this.send, createRequest.setPhoneNumber),
+    [tdlibMethodsNames.setAuthenticationPhoneNumber]:
+      compose(this.send, createRequest.setAuthenticationPhoneNumber),
   }
 
   public subscribe = {

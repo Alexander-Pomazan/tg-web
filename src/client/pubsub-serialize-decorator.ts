@@ -7,7 +7,7 @@ import { Pubsub } from './client-updates-pubsub'
  */
 type DecoratedPubsub<
   IncomingValue, SerializedValue
-> = Pick<Pubsub<IncomingValue>, 'publish'> & Pick<Pubsub<SerializedValue>, 'subscribe'>
+> = Omit<Pubsub<IncomingValue>, 'subscribe'> & Pick<Pubsub<SerializedValue>, 'subscribe'>
 
 export class PubsubSerializeDecorator<
   IncomingValue, SerializedValue
