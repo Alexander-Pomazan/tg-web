@@ -34,7 +34,6 @@ export class TelegramClient {
     new ClientUpdatesPubsub<AuthState>(), updatesSerializers.authState,
   )
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private send = async (requestObj: TdObject) => {
     const response = await this.client.send(requestObj)
     if (isError(response)) throw new Error(`Error: ${response.code} ${response.message}`)

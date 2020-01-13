@@ -51,6 +51,7 @@ module.exports = {
 
     '@typescript-eslint/member-delimiter-style': 0,
     '@typescript-eslint/semi': ['error', 'never'],
+    '@typescript-eslint/explicit-function-return-type': 0,
 
     'react/prop-types': 0, // because we use typescript
 

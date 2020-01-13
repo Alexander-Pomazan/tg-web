@@ -6,7 +6,6 @@ import { createDataReducer, ActionType } from './create-data-reducer'
 
 const [authReducer, initialState] = createDataReducer<AuthState>()
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useAuthState = () => {
   const client = useTelegramClient()
 
