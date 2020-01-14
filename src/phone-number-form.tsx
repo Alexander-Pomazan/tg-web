@@ -21,6 +21,7 @@ export const PhoneNumberForm: React.FC<PhoneNumberFormProps> = ({ onSubmit }) =>
     <form onSubmit={handleSubmit}>
       <input
         type="text"
+        placeholder="phone"
         value={value}
         onChange={handleChange}
       />

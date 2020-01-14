@@ -2,7 +2,7 @@ import React from 'react'
 import { useAuthState, tdlibAuthorizationStates } from 'src/client'
 import { AuthPageLayout } from './auth-page-layout'
 import { PhoneNumberFormContainer } from './phone-number-form-container'
-
+import { CodeFormContainer } from './code-form-container'
 
 export const AuthPage: React.FC = () => {
   const { loading, authState } = useAuthState()
@@ -17,8 +17,21 @@ export const AuthPage: React.FC = () => {
     return loading || isWaitingSetParams || isWaitingEncriptionKey
   })()
 
-  if (showLoadingState) return <div>Loading</div>
+  if (showLoadingState || !authState) return <div>Loading</div>
+
+  // TODO: refactor component selection logic
+  let authForm: React.ReactNode
+
+  if (authState === tdlibAuthorizationStates.authorizationStateWaitPhoneNumber) {
+    authForm = <PhoneNumberFormContainer />
+  }
+
+  if (authState === tdlibAuthorizationStates.authorizationStateWaitCode) {
+    authForm = <CodeFormContainer />
+  }
 
   // eslint-disable-next-line no-console
-  return <AuthPageLayout authForm={<PhoneNumberFormContainer />} />
+  console.log(authState)
+
+  return <AuthPageLayout authForm={authForm} />
 }

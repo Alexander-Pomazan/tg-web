@@ -21,6 +21,7 @@ export const CodeForm: React.FC<CodeFormProps> = ({ onSubmit }) => {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
+        placeholder="code"
         value={value}
         onChange={handleChange}
       />
