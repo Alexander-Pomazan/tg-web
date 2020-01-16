@@ -7,10 +7,18 @@ import {
 import {
   createSetPhoneNumberRequest,
 } from './create-set-phone-number-request'
+import {
+  createCheckAuthenticationCodeRequest,
+} from './create-check-authentication-code-request'
+import {
+  createRegisterUserRequest,
+} from './create-register-user-request'
 
 export const createRequest = {
   [tdlibMethodsNames.setTdlibParameters]: createSetTdParametersRequest,
   [tdlibMethodsNames.checkDatabaseEncryptionKey]: createSetEncriptionKeyRequest,
   [tdlibMethodsNames.getAuthorizationState]: createGetAuthorizationStateRequest,
-  [tdlibMethodsNames.setPhoneNumber]: createSetPhoneNumberRequest,
+  [tdlibMethodsNames.setAuthenticationPhoneNumber]: createSetPhoneNumberRequest,
+  [tdlibMethodsNames.checkAuthenticationCode]: createCheckAuthenticationCodeRequest,
+  [tdlibMethodsNames.registerUser]: createRegisterUserRequest,
 } as const

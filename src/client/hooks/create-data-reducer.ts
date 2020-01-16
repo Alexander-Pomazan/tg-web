@@ -38,11 +38,11 @@ type Reducer<DataType> = (
   (state: State<DataType> | undefined, action: Action<DataType>) => State<DataType>
 )
 
-export const createReducer = <DataType>(
+export const createDataReducer = <DataType>(
   initialData: DataType | null = null,
 ): [Reducer<DataType>, State<DataType>] => {
   const initialState: State<DataType> = {
-    loading: false,
+    loading: true,
     error: null,
     data: initialData,
   }

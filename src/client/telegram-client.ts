@@ -34,7 +34,6 @@ export class TelegramClient {
     new ClientUpdatesPubsub<AuthState>(), updatesSerializers.authState,
   )
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private send = async (requestObj: TdObject) => {
     const response = await this.client.send(requestObj)
     if (isError(response)) throw new Error(`Error: ${response.code} ${response.message}`)
@@ -53,8 +52,12 @@ export class TelegramClient {
       compose(this.send, createRequest.checkDatabaseEncryptionKey),
     [tdlibMethodsNames.setTdlibParameters]:
       compose(this.send, createRequest.setTdlibParameters),
-    [tdlibMethodsNames.setPhoneNumber]:
-      compose(this.send, createRequest.setPhoneNumber),
+    [tdlibMethodsNames.setAuthenticationPhoneNumber]:
+      compose(this.send, createRequest.setAuthenticationPhoneNumber),
+    [tdlibMethodsNames.checkAuthenticationCode]:
+      compose(this.send, createRequest.checkAuthenticationCode),
+    [tdlibMethodsNames.registerUser]:
+      compose(this.send, createRequest.registerUser),
   }
 
   public subscribe = {
@@ -62,7 +65,11 @@ export class TelegramClient {
   }
 
   constructor(api_id: number, api_hash: string) {
-    this.sendRequest.setTdlibParameters({
+    this.initialize(api_id, api_hash)
+  }
+
+  private initialize = async (api_id: number, api_hash: string): Promise<void> => {
+    await this.sendRequest.setTdlibParameters({
       '@type': 'tdParameters',
       application_version: '0.0.0',
       use_test_dc: true,
@@ -75,5 +82,7 @@ export class TelegramClient {
       device_model: getBrowser(),
       system_version: getOSName(),
     })
+
+    this.sendRequest.checkDatabaseEncryptionKey()
   }
 }
