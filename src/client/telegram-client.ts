@@ -56,6 +56,8 @@ export class TelegramClient {
       compose(this.send, createRequest.setAuthenticationPhoneNumber),
     [tdlibMethodsNames.checkAuthenticationCode]:
       compose(this.send, createRequest.checkAuthenticationCode),
+    [tdlibMethodsNames.registerUser]:
+      compose(this.send, createRequest.registerUser),
   }
 
   public subscribe = {

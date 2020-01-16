@@ -4,4 +4,5 @@ export const tdlibMethodsNames = {
   setTdlibParameters: 'setTdlibParameters',
   setAuthenticationPhoneNumber: 'setAuthenticationPhoneNumber',
   checkAuthenticationCode: 'checkAuthenticationCode',
+  registerUser: 'registerUser',
 } as const
