@@ -2,8 +2,7 @@ import React, { useCallback } from 'react'
 import { useCheckAuthenticationCode } from 'src/client'
 import { CodeForm } from './code-form'
 
-// eslint-disable-next-line no-console
-export const CodeFormContainer = () => {
+export const CodeFormContainer: React.FC = () => {
   const [checkCode, { loading }] = useCheckAuthenticationCode()
 
   const handleSubmit = useCallback((phoneNumber) => {
