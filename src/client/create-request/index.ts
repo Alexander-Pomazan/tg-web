@@ -14,6 +14,8 @@ import {
   createRegisterUserRequest,
 } from './create-register-user-request'
 
+import { createGetChatsRequest } from './create-get-chats-request'
+
 export const createRequest = {
   [tdlibMethodsNames.setTdlibParameters]: createSetTdParametersRequest,
   [tdlibMethodsNames.checkDatabaseEncryptionKey]: createSetEncriptionKeyRequest,
@@ -21,4 +23,5 @@ export const createRequest = {
   [tdlibMethodsNames.setAuthenticationPhoneNumber]: createSetPhoneNumberRequest,
   [tdlibMethodsNames.checkAuthenticationCode]: createCheckAuthenticationCodeRequest,
   [tdlibMethodsNames.registerUser]: createRegisterUserRequest,
+  [tdlibMethodsNames.getChats]: createGetChatsRequest,
 } as const

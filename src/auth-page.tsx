@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuthState, tdlibAuthorizationStates } from 'src/client'
+import { useAuthState, useTelegramClient, tdlibAuthorizationStates } from 'src/client'
 import { AuthPageLayout } from './auth-page-layout'
 import { PhoneNumberFormContainer } from './phone-number-form-container'
 import { CodeFormContainer } from './code-form-container'
@@ -17,6 +17,15 @@ export const AuthPage: React.FC = () => {
 
     return loading || isWaitingSetParams || isWaitingEncriptionKey
   })()
+
+  const client = useTelegramClient()
+  React.useEffect(() => {
+    if (authState === tdlibAuthorizationStates.authorizationStateReady) {
+      // eslint-disable-next-line no-console
+      client.sendRequest.getChats().then(console.log)
+    }
+  }, [authState, client])
+
 
   if (showLoadingState || !authState) return <div>Loading</div>
 

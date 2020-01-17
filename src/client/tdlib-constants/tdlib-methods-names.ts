@@ -5,4 +5,5 @@ export const tdlibMethodsNames = {
   setAuthenticationPhoneNumber: 'setAuthenticationPhoneNumber',
   checkAuthenticationCode: 'checkAuthenticationCode',
   registerUser: 'registerUser',
+  getChats: 'getChats',
 } as const

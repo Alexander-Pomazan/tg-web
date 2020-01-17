@@ -18,6 +18,8 @@ export class TelegramClient {
     logVerbosityLevel: 0,
     jsLogVerbosityLevel: 'warning',
     onUpdate: (update): void => {
+      // eslint-disable-next-line no-console
+      console.log('[UPDATE]:', update)
       switch (update['@type']) {
         case tdlibUpdatesTypes.updateAuthorizationState: {
           this.authPubSub.publish(update as TdlibAuthStateUpdate)
@@ -58,6 +60,8 @@ export class TelegramClient {
       compose(this.send, createRequest.checkAuthenticationCode),
     [tdlibMethodsNames.registerUser]:
       compose(this.send, createRequest.registerUser),
+    [tdlibMethodsNames.getChats]:
+      compose(this.send, createRequest.getChats),
   }
 
   public subscribe = {
